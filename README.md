@@ -48,4 +48,6 @@
 ```
 请自行更换主应用中的 appInfos.js 文件
 和子应用中 vue.config.js publicPath
+部署之后 子应用加载不到静态文件
+请先 子应用 vue add vue-cli-plugin-chensj 再部署
 ```

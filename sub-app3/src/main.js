@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import '@/components/ZhlCustomComp/index.js'
-import './portal-public-path'
+import './public-path'
 
 Vue.config.productionTip = false
 

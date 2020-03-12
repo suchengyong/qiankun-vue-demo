@@ -5,7 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/components/ZhlCustomComp/index.js'
-import './portal-public-path'
+import './public-path'
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small' })
 

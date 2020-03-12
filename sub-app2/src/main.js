@@ -6,7 +6,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './public-path'
 import '@/components/ZhlCustomComp/index.js'
-import './portal-public-path'
 
 Vue.config.productionTip = false
 
