@@ -8,6 +8,7 @@ import {
 } from 'qiankun'
 import { mapGetters } from 'vuex'
 import fetch from 'isomorphic-fetch'
+import consoleProxy from '@/utils/console'
 import { appInfos, genActiveRule } from './appInfos'
 export default {
   name: 'master',
@@ -247,10 +248,14 @@ export default {
         console.info('first app mounted')
       })
       // 启动微服务
+      const jsSandbox = true
       start({
         prefetch: false,  //是否开启预加载
-        jsSandbox: true, // 是否开启沙箱
+        jsSandbox, // 是否开启沙箱
       })
+      if (jsSandbox) {
+        window.console = consoleProxy(window.console)
+      }
     }
   }
 }
