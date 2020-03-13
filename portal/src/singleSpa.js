@@ -205,7 +205,10 @@ export default {
           ],
           beforeMount: [
             app => {
-              // this.errorApp = false
+              // 应用之间切换动画
+              setTimeout(() => {
+                this.$refs['animateApp'].className = 'app_transform_enter'
+              }, 500)
             }
           ],
           afterUnmount: [
@@ -223,6 +226,8 @@ export default {
           ],
           beforeUnmount: [
             app => {
+              // 应用之间切换动画
+              this.$refs['animateApp'].className = 'app_transform_leave'
             }
           ]
         },

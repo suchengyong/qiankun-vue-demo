@@ -5,7 +5,7 @@
     <!-- 加载错误子应用页面 -->
     <portalErrorApp v-show="errorApp"/>
     <!-- 加载成功子应用页面 -->
-    <div v-show="!errorApp" v-html="appContent"></div>
+    <div ref="animateApp" v-show="!errorApp" v-html="appContent"></div>
   </section>
 </template>
 
