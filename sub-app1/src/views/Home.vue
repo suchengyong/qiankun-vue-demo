@@ -39,7 +39,7 @@ export default {
       Vue.prototype.parentFns.portal_logout()
     },
     save() {
-      sessionStorage.setItem("a", 'b')
+      sessionStorage.setItem("a", JSON.stringify({a: 'b'}))
     },
     handleGet() {
       alert(sessionStorage.getItem('a'))

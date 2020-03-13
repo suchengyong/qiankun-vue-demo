@@ -1,5 +1,5 @@
 import { asyncRouterMap, constantRouterMap } from '@/router'
-
+import { appInfos } from '@/appInfos'
 const formatterRoutes = (menu, appPrefix, appName) => {
   const accessedRoutes = []
   menu.map(item => {
@@ -69,6 +69,17 @@ const permission = {
         const accessedRoutes = [...menus]
         accessedRoutes.push(...asyncRouterMap)
         console.log('accessedRoutes', accessedRoutes)
+        // 检测 appInfos和accessedRoutes 是否一致 抛出异常
+        if (!accessedRoutes.length) {
+          throw '请确保菜单管理中配置了子应用的菜单信息'
+        }
+        const path = accessedRoutes[0].path.split('/')[1]
+
+        let flag = appInfos.findIndex(item => item.name === path)
+        if (flag === -1) {
+          throw `请确保appInfos里的name字段和菜单管理中配置的应用前缀一致`
+        }
+
         // 清除以前的动态路由
         const addRouters = [...this.getters.addRouters]
         if (addRouters && addRouters.length) {
@@ -87,7 +98,6 @@ const permission = {
             newMenus.push({ ...item, appMenus: formatterRoutes(item.appMenus, item.appPrefix, item.appName) })
           // }
         })
-        console.log(newMenus)
         commit('SET_SUB_APP', newMenus)
         resolve()
       })

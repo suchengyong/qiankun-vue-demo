@@ -35,7 +35,10 @@
     取值 sessionStorage.getItem('a')
     清除 值 sessionStorage.removeItem('a')
     清空 sessionStorage.clear()   // 只清空当前应用的 sessionStorage
+  获取其他子应用的 sessionStorage 
+    sessionStorage.getItem(子应用名: + key)
     localStorage 一样
+8：区分 console.log 宿主 方便 开发时调试
 ```
 
 ### 未解决

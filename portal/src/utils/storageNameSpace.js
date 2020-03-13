@@ -1,4 +1,5 @@
 import store from '@/store'
+const MAIN_APP_NAME = '主应用'
 const getNamespace = () => {
   const pathname = window.location.pathname.split('/')[1]
   const subApp = store.getters.subApp
@@ -11,9 +12,12 @@ const getNamespace = () => {
 // setItem
 const portalSessionOriginSetItem = window.sessionStorage.setItem
 window.sessionStorage.setItem = function(key, newValue, bool) {
+  if (key.indexOf(':')!==-1) {
+    throw 'key值请不要携带 : , 或修改其它子应用值'
+  }
   // 添加命名空间  以子应用的唯一key
   if (bool) {  // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
+    key = `${MAIN_APP_NAME}:${key}`
   } else {  // 子应用  根据 子应用 key 添加 nameSpace
     key = `${getNamespace()}:${key}`
   }
@@ -24,19 +28,27 @@ window.sessionStorage.setItem = function(key, newValue, bool) {
 // getItem
 const portalSessionOriginGetItem = window.sessionStorage.getItem
 window.sessionStorage.getItem = function(key, bool) {
-  // 提前添加 命名空间 取值
-  if (bool) { // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
-  } else { // 子应用  根据 子应用 key 添加 nameSpace
-    key = `${getNamespace()}:${key}`
+  if (key.indexOf(':') !== -1) {
+    // 获得其他子应用的 sessionStorage
+  } else {
+    // 提前添加 命名空间 取值
+    if (bool) { // 为true 代表主应用  添加 主应用唯一key
+      key = `${MAIN_APP_NAME}:${key}`
+    } else { // 子应用  根据 子应用 key 添加 nameSpace
+      key = `${getNamespace()}:${key}`
+    }
   }
+  
   arguments[0] = key
   return portalSessionOriginGetItem.apply(this, arguments)
 }
 const portalSessionOriginRemoveItem = window.sessionStorage.removeItem
 window.sessionStorage.removeItem = function(key, bool) {
+  if (key.indexOf(':') !== -1) {
+    throw '不支持清除其它应用sessionStorage'
+  }
   if (bool) { // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
+    key = `${MAIN_APP_NAME}:${key}`
   } else {
     key = `${getNamespace()}:${key}`
   }
@@ -52,7 +64,7 @@ window.sessionStorage.clear = function(bool) {
     portalSessionOriginClear.apply(this, arguments)
     return
   } else if (bool && bool === 'self') {
-    namespace = '主应用'
+    namespace = MAIN_APP_NAME
   } else {
     namespace = getNamespace()
   }
@@ -60,7 +72,7 @@ window.sessionStorage.clear = function(bool) {
     let key = window.sessionStorage.key(i)
     let arr = key.split(':')
     if (arr[0] === namespace) {
-      if (namespace === '主应用') {
+      if (namespace === MAIN_APP_NAME) {
         window.sessionStorage.removeItem(arr[1], true)
       } else {
         window.sessionStorage.removeItem(arr[1])
@@ -76,9 +88,12 @@ window.sessionStorage.clear = function(bool) {
  // setItem
 const portalLocalOriginSetItem = window.localStorage.setItem
 window.localStorage.setItem = function(key, newValue, bool) {
+  if (key.indexOf(':')!==-1) {
+    throw 'key值请不要携带 : , 或修改其它子应用值'
+  }
   // 添加命名空间  以子应用的唯一key
   if (bool) {  // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
+    key = `${MAIN_APP_NAME}:${key}`
   } else {  // 子应用  根据 子应用 key 添加 nameSpace
     key = `${getNamespace()}:${key}`
   }
@@ -89,19 +104,26 @@ window.localStorage.setItem = function(key, newValue, bool) {
 // getItem
 const portalLocalOriginGetItem = window.localStorage.getItem
 window.localStorage.getItem = function(key, bool) {
-  // 提前添加 命名空间 取值
-  if (bool) { // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
-  } else { // 子应用  根据 子应用 key 添加 nameSpace
-    key = `${getNamespace()}:${key}`
+  if (key.indexOf(':') !== -1) {
+    // 获得其他子应用的 sessionStorage
+  } else {
+    // 提前添加 命名空间 取值
+    if (bool) { // 为true 代表主应用  添加 主应用唯一key
+      key = `${MAIN_APP_NAME}:${key}`
+    } else { // 子应用  根据 子应用 key 添加 nameSpace
+      key = `${getNamespace()}:${key}`
+    }
   }
   arguments[0] = key
   return portalLocalOriginGetItem.apply(this, arguments)
 }
 const portalLocalOriginRemoveItem = window.localStorage.removeItem
 window.localStorage.removeItem = function(key, bool) {
+  if (key.indexOf(':') !== -1) {
+    throw '不支持清除其它应用localStorage'
+  }
   if (bool) { // 为true 代表主应用  添加 主应用唯一key
-    key = `主应用:${key}`
+    key = `${MAIN_APP_NAME}:${key}`
   } else {
     key = `${getNamespace()}:${key}`
   }
@@ -117,7 +139,7 @@ window.localStorage.clear = function(bool) {
     portalLocalOriginClear.apply(this, arguments)
     return
   } else if (bool && bool === 'self') {
-    namespace = '主应用'
+    namespace = MAIN_APP_NAME
   } else {
     namespace = getNamespace()
   }
@@ -125,7 +147,7 @@ window.localStorage.clear = function(bool) {
     let key = window.localStorage.key(i)
     let arr = key.split(':')
     if (arr[0] === namespace) {
-      if (namespace === '主应用') {
+      if (namespace === MAIN_APP_NAME) {
         window.localStorage.removeItem(arr[1], true)
       } else {
         window.localStorage.removeItem(arr[1])

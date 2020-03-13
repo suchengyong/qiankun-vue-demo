@@ -112,7 +112,6 @@ export default {
     },
     // 自定义的 fetch钩子函数 用于子应用 试错机制
     request(url) {
-      
       const that = this
       return new Promise((resolve, reject) => {
         fetch(url, {

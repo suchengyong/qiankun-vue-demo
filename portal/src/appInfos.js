@@ -27,5 +27,13 @@ const appInfos = process.env.NODE_ENV === 'production'
     { name: 'sub-app3', entry: '//localhost:8083', href: '/sub-app3' },
     { name: 'sub-app4', entry: '//localhost:8084', href: '/sub-app4' },
   ]
+// 如果 编辑  子应用信息异常 抛出 错误
+for (let i = 0; i < appInfos.length; i++) {
+  if ('/' + appInfos[i].name !== appInfos[i].href) {
+    throw  `${appInfos[i].name}子应用: 请保证name字段和href字段 一致 例子 name: sub-app1 href: /sub-app1`
+  } else if (!appInfos[i].entry) {
+    throw `${appInfos[i].name}子应用: 请填写 entry字段， 如不明白 请联系 csj`
+  }
+}
 
 export { appInfos, genActiveRule }
