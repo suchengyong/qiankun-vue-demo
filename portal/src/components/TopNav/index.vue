@@ -32,8 +32,8 @@ export default {
   watch: {
     $route(to,from) {
       let appPrefix = to.meta.appPrefix? to.meta.appPrefix : ''
-      let lastPrefix = sessionStorage.getItem("subAppPrefix")
-      sessionStorage.setItem('subAppPrefix', appPrefix)
+      let lastPrefix = sessionStorage.getItem("subAppPrefix", true)
+      sessionStorage.setItem('subAppPrefix', appPrefix, true)
       if (appPrefix) {
         let index = this.subApp.findIndex(item => item.appPrefix === appPrefix)
         let appMenus = this.subApp[index].appMenus
@@ -52,7 +52,7 @@ export default {
     ...mapActions(['generateRoutes']),
     // 设置首次激活子应用
     setActiveSubApp() {
-      const subAppPrefix = sessionStorage.getItem("subAppPrefix")
+      const subAppPrefix = sessionStorage.getItem("subAppPrefix", true)
       let activeName
       if (subAppPrefix) {
         let index = this.subApp.findIndex(item => item.appPrefix === subAppPrefix)
@@ -105,8 +105,8 @@ export default {
         // 动态添加新路由
         router.addRoutes(this.addRouters)
         // 存储 当前应用的 前缀 用于刷新时  能定位到
-        sessionStorage.setItem('subAppPrefix', appPrefix)
-        sessionStorage.setItem('refreshApp', appPrefix)
+        sessionStorage.setItem('subAppPrefix', appPrefix, true)
+        sessionStorage.setItem('refreshApp', appPrefix, true)
         if (/\/$/.test(newPath)) {
           newPath = newPath.substring(0, newPath.length-1)
         }
@@ -117,7 +117,7 @@ export default {
       // if (tabsIndex && tabsIndex == 9 && tabsIndex == this.subApp.length - 1) 
     },
     tabsClick(e) {
-      if (sessionStorage.getItem("subAppPrefix") === this.activeName) return
+      if (sessionStorage.getItem("subAppPrefix", true) === this.activeName) return
       // 跳转 激活应用
       const appPrefix = e.name
       const appMenus = e.$attrs['data-appMenus']

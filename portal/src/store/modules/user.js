@@ -258,7 +258,7 @@ const user = {
     // 前端 登出
     fedLogOut({ commit }) {
       return new Promise(resolve => {
-        sessionStorage.clear()
+        sessionStorage.clear(true)
         commit('SET_TOKEN', '')
         removeToken()
         resolve()

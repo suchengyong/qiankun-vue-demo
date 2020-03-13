@@ -5,6 +5,8 @@ import 'animate.css'  // 动画 css
 import '@/styles/index.less'  // global style
 import '@/utils/initTheme' // init theme
 
+import '@/utils/storageNameSpace'  // 存储 命名空间
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'

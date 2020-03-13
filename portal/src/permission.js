@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
             // 注入子应用
             store.dispatch('generateSubApp', menu).then(() => {
               // 左侧动态路由
-              const subAppPrefix = sessionStorage.getItem('subAppPrefix')
+              const subAppPrefix = sessionStorage.getItem('subAppPrefix', true)
               let appMenus, index, redirect
               const subApp = store.getters.subApp
               if (subAppPrefix) {
@@ -84,7 +84,7 @@ router.beforeEach((to, from, next) => {
                   redirect = subApp[0].appPrefix
                   appMenus = subApp[0].appMenus
                 }
-                sessionStorage.setItem('subAppPrefix', redirect)
+                sessionStorage.setItem('subAppPrefix', redirect, true)
               }
               store.dispatch('generateRoutes', appMenus).then(() => {
                 // 根据menu id生成可访问的路由表
@@ -123,8 +123,8 @@ router.beforeEach((to, from, next) => {
           // 因为微服务原因 并无此路由 需调第一个子路由的第一个页面
           if (to.path === '/') {
             const { appPrefix, appMenus } = store.getters.subApp[0]
-            sessionStorage.setItem('subAppPrefix', appPrefix)
-            sessionStorage.setItem('refreshApp', appPrefix)
+            sessionStorage.setItem('subAppPrefix', appPrefix, true)
+            sessionStorage.setItem('refreshApp', appPrefix, true)
             // 更换 左侧菜单
             store.dispatch('generateRoutes', appMenus).then(() => {
               // 根据menu id生成可访问的路由表

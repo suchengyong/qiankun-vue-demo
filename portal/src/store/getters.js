@@ -18,7 +18,6 @@ const getters = {
   userInfo: state => state.user.userInfo,
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
-  isCanAddRouters: state => state.permission.isCanAddRouters,
   // errorLogs: state => state.errorLog.logs,
   // constant: state => state.constant.constant,
   // courseCart: state => state.apply.courseCart,

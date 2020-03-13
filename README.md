@@ -20,6 +20,22 @@
 4: 子应用重连机制
 5: 子应用共用 401 404 等页面
 6: 子应用调用 主应用方法 比如 登录 授权 等
+7: storage 命名空间
+    主应用中 
+    存值 sesstionStorage.setItem('a', 'b', true)
+    // 会自动在key上添加 `主应用:a` 作为key
+    取值 sesstionStorage.getItem('a', true)
+    清除 值 sessionStorage.removeItem('a', true)
+    清空 
+      sessionStorage.clear(true)  // 清除所有sessionStorage 包括子应用的
+      sessionStorage.clear('self')  // 清除主应用的 sessionStorage
+    子应用中 
+    存值 sessionStorage.setItem('a', 'b')  
+    // 会自动在key上添加 '应用名:a' 作为key
+    取值 sessionStorage.getItem('a')
+    清除 值 sessionStorage.removeItem('a')
+    清空 sessionStorage.clear()   // 只清空当前应用的 sessionStorage
+    localStorage 一样
 ```
 
 ### 未解决

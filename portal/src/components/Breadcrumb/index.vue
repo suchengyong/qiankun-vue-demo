@@ -122,7 +122,7 @@ export default {
     },
     closeAllTags() {
       this.$store.dispatch('delAllViews')
-      let subAppPrefix = sessionStorage.getItem('refreshApp')
+      let subAppPrefix = sessionStorage.getItem('refreshApp', true)
       let menus
       if (subAppPrefix) {
         let index = this.subApp.findIndex(item => item.appPrefix === subAppPrefix)

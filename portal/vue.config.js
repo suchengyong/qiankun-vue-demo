@@ -73,16 +73,19 @@ module.exports = {
       .plugins
         .delete('prefetch')
       .end()
-      .optimization
-        .minimize(true) // js文件最小化处理
-        .splitChunks({ chunks: 'all' }) // 分割代码
-      .end()
-      // .module
-      //   .rule('images')   // 图片压缩
-      //   .use('image-webpack-loader')
-      //   .loader('image-webpack-loader')
-      //   .options({ bypassOnDebug: true })
-      // .end()
+    if (process.env.NODE_ENV === 'production') {
+      config
+        .optimization
+          .minimize(true) // js文件最小化处理
+          .splitChunks({ chunks: 'all' }) // 分割代码
+        .end()
+        // .module
+        //   .rule('images')   // 图片压缩
+        //   .use('image-webpack-loader')
+        //   .loader('image-webpack-loader')
+        //   .options({ bypassOnDebug: true })
+        // .end()
+    }
   },
   // 开发环境配置
   devServer: {
