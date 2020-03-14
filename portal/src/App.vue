@@ -35,7 +35,7 @@ export default {
         model: {  jsonPath: `${window.location.origin}/live2dw/live2d-widget-model-${live2d}/assets/${live2d}.model.json`},
         // display: { position: 'bottom', width: 150, height: 300 },
         display: { position: 'left', width: 120, height: 220, ...live2dOpts },
-        mobile: { show: true },
+        mobile: { show: false },
         log: false,
       })
       if (!live2dOpts.show) {
