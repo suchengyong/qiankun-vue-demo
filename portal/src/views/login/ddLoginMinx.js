@@ -1,3 +1,6 @@
+/**
+ * 钉钉扫码登录
+ */
 import { getUrlParam } from '@/utils'
 export default {
   data() {
@@ -48,7 +51,7 @@ export default {
           goto, //请参考注释里的方式
           style: "border:none;background-color:transparent;margin: 0 auto",
           width : "365",
-          height: "365"
+          height: "325"
         })
         this.listenDDCb()
       })

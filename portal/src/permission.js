@@ -155,7 +155,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // 判断下是不是 钉钉 微信 扫码进来 需重新 拼接
-      if (to.query.code && to.query.state) { // 钉钉
+      if (to.query.code && to.query.state === 'DD_STATE') { // 钉钉
         next(`/portal-login?code=${to.query.code}&state=${to.query.state}`)
       } else {
         next(`/portal-login?redirect=${to.fullPath}`) // 否则全部重定向到登录页

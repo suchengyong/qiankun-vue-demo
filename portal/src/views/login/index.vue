@@ -64,7 +64,7 @@
             </div>
             <span>钉钉登录</span>
           </li>
-          <li class="in-way-wx">
+          <li class="in-way-wx" @click.stop="wxLogin">
             <div class="item">
               <i style="width: 24px; color: #23BF36" class="zht-icon-icon-weixin"></i>
             </div>
@@ -87,11 +87,12 @@
 <script>
 import OtherLogin from './otherLogin'
 import ddLoginMinx from './ddLoginMinx'
+import wxLoginMinx from './wxLoginMinx'
 
 export default {
   name: 'Login',
   components: { OtherLogin },
-  mixins: [ddLoginMinx],
+  mixins: [ddLoginMinx, wxLoginMinx],
   data() {
     return {
       loginForm: {

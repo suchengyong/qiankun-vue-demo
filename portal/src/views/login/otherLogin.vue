@@ -2,7 +2,7 @@
   <transition name="fade" mode="out-in">
     <div v-if="showBox" class="other_login_wrap" @click.stop="handleClose">
       <div class="other_login_box">
-        <!-- 其他登录方式 -->
+        <!-- 登录方式容器 -->
         <div id="login_container"></div>
       </div>
     </div>
@@ -39,7 +39,7 @@ export default {
     position: relative;
     top: 50%;
     width: 400px;
-    // height: 400px;
+    // height: 300px;
     margin: -200px auto 0;
     border-radius: 10px;
     background: #f3f5f7;
