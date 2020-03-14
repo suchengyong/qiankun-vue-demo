@@ -154,7 +154,12 @@ router.beforeEach((to, from, next) => {
       // 在免登录白名单，直接进入
       next()
     } else {
-      next(`/portal-login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      // 判断下是不是 钉钉 微信 扫码进来 需重新 拼接
+      if (to.query.code && to.query.state) { // 钉钉
+        next(`/portal-login?code=${to.query.code}&state=${to.query.state}`)
+      } else {
+        next(`/portal-login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      }
       // token失效之后 无法重定向至 登录页
       if (to.path !== '/' && from.path !== '/') {
         Message.error({

@@ -87,6 +87,7 @@
 <script>
 import OtherLogin from './otherLogin'
 import ddLoginMinx from './ddLoginMinx'
+
 export default {
   name: 'Login',
   components: { OtherLogin },
