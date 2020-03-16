@@ -19,8 +19,9 @@ export default {
   },
   methods: {
     handleClose(e) {
-      e.preventDefault()
-      this.showBox = false
+      if (e.target.className === 'other_login_wrap') {
+        this.showBox = false
+      }
     }
   }
 }
@@ -42,13 +43,22 @@ export default {
     // height: 300px;
     margin: -200px auto 0;
     border-radius: 10px;
-    background: #f3f5f7;
-    box-shadow: 0px 0px 20px 1px #ccc;
+    // background: #f3f5f7;
+    background: rgba(243,245,247, .6);
+    // box-shadow: 0px 0px 20px 1px #ccc;
     #login_container {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+  }
+}
+@media screen and (max-width: 500px){
+  .other_login_box {
+    width: 100%!important;
   }
 }
 </style>

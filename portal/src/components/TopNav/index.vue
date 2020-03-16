@@ -12,6 +12,24 @@
         </span>
       </el-tab-pane>
     </el-tabs>
+    <el-dropdown class="drapdown-top-nav" trigger="click" size="small" @command="(e, a) => handleCommand(e, a)">
+      <div class="sub-app-list">
+        <div class="text">
+          子应用列表<i class="el-icon-caret-bottom"/>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            :data-appMenus="item.appMenus"
+            :command="item.appPrefix"
+            v-for="item of subApp"
+            :key="item.appPrefix"
+            :class="{'active': activeName === item.appPrefix}"
+          >
+            <i style="margin-right: 2px;" v-if="item.icon" :class="item.icon"></i>{{item.appName}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </div>
+    </el-dropdown>
   </div>
 </template>
 
@@ -155,6 +173,13 @@ export default {
       } else {
         return window.getComputedStyle? window.getComputedStyle(obj, null).width: obj.currentStyle.width
       }
+    },
+    handleCommand(command, e) {
+      if (sessionStorage.getItem("subAppPrefix", true) === command) return
+      this.activeName = command
+      const appPrefix = command
+      const appMenus = e.$attrs['data-appMenus']
+      this.changeSiderbar(appPrefix, appMenus, null, e.index)
     }
   }
 }
@@ -180,6 +205,40 @@ export default {
   }
   /deep/ .el-tabs__nav {
     margin-right: 7px;
+  }
+}
+.drapdown-top-nav {
+  display: none;
+  .sub-app-list {
+    width: 100px;
+    height:64px;
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+    .text {
+      cursor: pointer;
+      position: relative;
+      background: rgba(235, 238, 241, 0.7);
+      box-shadow: 0 0 8px rgba(204, 204, 204, 0.9);
+      height: 46px;
+      padding: 0 20px;
+      border-radius: 25px;
+      line-height: 46px;
+      .el-icon-caret-bottom {
+        position: absolute;
+        right: 4px;
+        top: 17px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 774px) {
+  .drapdown-top-nav {
+    display: block;
+  }
+  .portal-top-nav .el-tabs {
+    display: none!important
   }
 }
 </style>

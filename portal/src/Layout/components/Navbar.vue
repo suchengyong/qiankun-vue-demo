@@ -14,11 +14,11 @@
       <Weather />
       <el-dropdown class="avatar-container" trigger="click" size="small" @command="handleCommand">
         <div class="avatar-wrapper">
-          <p>
+          <p class="user-name">
             {{ userInfo.userName }}
             <el-tag size="mini" class="act-color">{{ userInfo.currentRoleName }}</el-tag>
           </p>
-          <p>{{ userInfo.currentCampusNames }}</p>
+          <p class="campus-names">{{ userInfo.currentCampusNames }}</p>
           <i class="el-icon-caret-bottom"/>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -175,6 +175,18 @@ export default {
         font-size: 12px;
       }
     }
+  }
+}
+@media screen and (max-width: 500px){
+  .act-color {
+    display: none!important;
+  }
+  .campus-names {
+    display: none!important;
+  }
+  .user-name {
+    padding-top: 0!important;
+    line-height: 46px!important;
   }
 }
 </style>

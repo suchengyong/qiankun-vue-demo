@@ -4,7 +4,7 @@
       <div class="weather-box-img">
         <img v-if="img" :src="img" :title="weatherInfo.weather" :alt="weatherInfo.weather">
       </div>
-      <div>
+      <div class="weather-info">
         <p>{{ weatherInfo.temperature }}℃ / 湿度: {{ weatherInfo.humidity }}</p>
         <p>{{ weatherInfo.province }} {{ weatherInfo.city }}</p>
       </div>
@@ -88,6 +88,11 @@ export default {
   span {
     color: #999;
     font-size: 13px;
+  }
+}
+@media screen and (max-width: 500px){
+  .weather-box {
+    display: none!important;
   }
 }
 </style>

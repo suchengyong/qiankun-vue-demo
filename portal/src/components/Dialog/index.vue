@@ -93,6 +93,11 @@ export default {
 </script>
 
 <style lang="less">
+@media screen and (max-width: 500px){
+  .el-dialog {
+    width: 100%!important;
+  }
+}
 .dialog {
   transition: all 0.3s;
   .el-dialog {

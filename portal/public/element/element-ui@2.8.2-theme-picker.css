@@ -85,6 +85,10 @@
   background-color: #ecf5ff;
   color: #66b1ff;
 }
+.el-dropdown-menu__item.active{
+  background-color: #ecf5ff;
+  color: #66b1ff;
+}
 .el-dropdown-menu__item i {
   margin-right: 5px;
 }

@@ -1,98 +1,115 @@
 <template>
+  
   <div class="login-container">
     <div class="login-box">
-      <el-form
-        ref="loginForm"
-        :model="loginForm"
-        class="login-form"
-        auto-complete="off"
-        label-position="left"
-      >
-        <h3 class="title">登 录</h3>
-        <el-form-item prop="username">
-          <span class="svg-container">
-            <svg-icon icon-class="user" color="#d9b77c"/>
-          </span>
-          <el-input
-            v-model="loginForm.username"
-            name="username"
-            type="text"
-            auto-complete="on"
-            placeholder="请输入用户名"
-          />
-          <span class="virtual-border"></span>
-        </el-form-item>
-        <el-form-item prop="password">
-          <span class="svg-container">
-            <svg-icon icon-class="password" color="#d9b77c"/>
-          </span>
-          <el-input
-            v-model="loginForm.password"
-            :type="passwordType"
-            name="password"
-            auto-complete="on"
-            placeholder="请输入密码"
-            @keyup.enter.native="handleLogin"
-          />
-          <span class="virtual-border"></span>
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon v-if="passwordType==='password'" icon-class="eye" color="#d9b77c"/>
-            <svg-icon v-else icon-class="open_eye" color="#d9b77c"/>
-          </span>
-        </el-form-item>
-        <el-form-item class="forget-pwd-btn">
-          <el-button type="text">忘记密码？</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            :loading="loading"
-            type="primary"
-            class="login-btn"
-            @click.native.prevent="handleLogin"
-          >登 录</el-button>
-        </el-form-item>
-      </el-form>
-      <div class="login-new-line">
-        <span>第三方登录</span>
+      <div class="left">
+        <div class="con">
+          <p class="welcome">
+            欢迎来到
+            <svg-icon icon-class="welcome" color="#d9b77c"/>
+          </p>
+          <h1 class="name">中惠旅中台</h1>
+        </div>
       </div>
-      <div class="login-in-way">
-        <ul class="clearfix">
-          <li class="in-way-dd" @click.stop="ddLogin">
-            <div class="recommd">推荐</div>
-            <div class="item">
-              <i style="color: #1296DB" class="zht-icon-shejiaodingding"></i>
-            </div>
-            <span>钉钉登录</span>
-          </li>
-          <li class="in-way-wx" @click.stop="wxLogin">
-            <div class="item">
-              <i style="width: 24px; color: #23BF36" class="zht-icon-icon-weixin"></i>
-            </div>
-            <span>微信登录</span>
-          </li>
-          <li class="in-way-sj">
-            <div class="item">
-              <i style="width: 24px; color: #FF9100" class="zht-icon-icon-shouji"></i>
-            </div>
-            <span>手机登录</span>
-          </li>
-        </ul>
+      <div class="right">
+        <el-form
+          ref="loginForm"
+          :model="loginForm"
+          class="login-form"
+          auto-complete="off"
+          label-position="left"
+        >
+          <h1 class="sub_name">中惠旅中台</h1>
+          <el-form-item prop="username">
+            <span class="svg-container">
+              <svg-icon icon-class="user" color="#d9b77c"/>
+            </span>
+            <el-input
+              v-model="loginForm.username"
+              name="username"
+              type="text"
+              auto-complete="off"
+              placeholder="请输入用户名"
+            />
+            <span class="virtual-border"></span>
+          </el-form-item>
+          <el-form-item prop="password">
+            <span class="svg-container">
+              <svg-icon icon-class="password" color="#d9b77c"/>
+            </span>
+            <el-input
+              v-model="loginForm.password"
+              :type="passwordType"
+              name="password"
+              auto-complete="off"
+              placeholder="请输入密码"
+              @keyup.enter.native="handleLogin"
+            />
+            <span class="virtual-border"></span>
+            <span class="show-pwd" @click="showPwd">
+              <svg-icon v-if="passwordType==='password'" icon-class="eye" color="#d9b77c"/>
+              <svg-icon v-else icon-class="open_eye" color="#d9b77c"/>
+            </span>
+          </el-form-item>
+          <el-form-item class="forget-pwd-btn">
+            <el-button type="text" @click.stop="forgetPass">忘记密码？</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              :loading="loading"
+              type="primary"
+              class="login-btn"
+              @click.native.prevent="handleLogin"
+            >登 录</el-button>
+          </el-form-item>
+        </el-form>
+        <div class="login-new-line">
+          <span>第三方登录</span>
+        </div>
+        <div class="login-in-way">
+          <ul class="clearfix">
+            <li class="in-way-dd" @click.stop="ddLogin">
+              <div class="recommd">推荐</div>
+              <div class="item">
+                <i style="color: #1296DB" class="zht-icon-shejiaodingding"></i>
+              </div>
+              <span>钉钉登录</span>
+            </li>
+            <li class="in-way-wx" @click.stop="wxLogin">
+              <div class="item">
+                <i style="width: 24px; color: #23BF36" class="zht-icon-icon-weixin"></i>
+              </div>
+              <span>微信登录</span>
+            </li>
+            <li class="in-way-sj" @click.stop="sjLogin">
+              <div class="item">
+                <i style="width: 24px; color: #FF9100" class="zht-icon-icon-shouji"></i>
+              </div>
+              <span>手机登录</span>
+            </li>
+          </ul>
+        </div>
       </div>
+      
     </div>
-    <!-- 其他登录方式的 容器 -->
+    <!-- 其他登录方式 容器 -->
     <other-login ref="otherLogin" />
+    <!-- 手机登录方式 容器 -->
+    <phone-login ref="phoneLogin" :redirect="redirect" />
   </div>
 </template>
 
 <script>
 import OtherLogin from './otherLogin'
+import PhoneLogin from './phoneLogin'
 import ddLoginMinx from './ddLoginMinx'
 import wxLoginMinx from './wxLoginMinx'
+import sjLoginMinx from './sjLoginMinx'
 
 export default {
   name: 'Login',
-  components: { OtherLogin },
-  mixins: [ddLoginMinx, wxLoginMinx],
+  components: { OtherLogin, PhoneLogin },
+  mixins: [ddLoginMinx, wxLoginMinx, sjLoginMinx],
   data() {
     return {
       loginForm: {
@@ -113,6 +130,9 @@ export default {
     }
   },
   methods: {
+    forgetPass() {
+      console.log('忘记密码')
+    },
     showPwd() {
       this.passwordType = this.passwordType === 'password' ? '' : 'password'
     },
@@ -177,31 +197,87 @@ export default {
 }
 
 .login-container {
-  position: relative;
   height: 100%;
   width: 100%;
-  overflow: hidden;
-  &::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: calc(100% - 584px);
-    background: @bg url(../../assets/images/bg.png) no-repeat;
-    background-size: cover;
-  }
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: url(../../assets/images/slider-2.jpg) no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
   .login-box {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    right: 0;
-    width: 584px;
-    max-width: 100%;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 10% 8% 10%;
-    box-sizing: border-box;
+    width: 60%;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    margin-top: -200px;
+    overflow: hidden;
+    border-radius: 10px;
+    .left {
+      float: left;
+      height: 100%;
+      width: calc(100% - 400px);
+      background: rgba(70, 79, 94, 0.8);
+      position: relative;
+      color: #be9966;
+      &:before {
+        content: ' ';
+        background: url(../../assets/images/slider-2.jpg) center center;
+        filter: blur(8px);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin-top: -30px;
+      }
+      .con {
+        position: relative;
+        z-index: 7700;
+        width: 80%;
+        margin: 0 auto;
+        top: 50%;
+        transform: translate(0 , -50%);
+      }
+      .welcome {
+        font-size: 20px;
+        line-height: 40px;
+        font-weight: bold;
+        margin: 0;
+        &:after {
+          content: ' ';
+          display: block;
+          width: 100%;
+          height: 1px;
+          background: #be9966;
+          border-radius: 1px;
+        }
+      }
+      .name {
+        font-size: 24px;
+        margin: 0;
+        line-height: 60px;
+      }
+    }
+    .right {
+      position: relative;
+      z-index: 7800;
+      float: left;
+      width: 400px;
+      height: 100%;
+      background: #f3f5f7;
+      .sub_name {
+        display: none;
+        text-align: center;
+        color: #be9966;
+        margin: 30px 0;
+      }
+    }
+
+
+
+
+
     .login-new-line {
       width: 100%;
       height: 1px;
@@ -293,20 +369,20 @@ export default {
           &:hover {
             .item {
               background: #1296DB;
-              border-color: #1296DB;
+              border-color: #1296DB!important;
             }
           }
         }
         &.in-way-wx:hover {
           .item {
             background: #23BF36;
-            border-color: #23BF36;
+            border-color: #23BF36!important;
           }
         }
         &.in-way-sj:hover {
           .item {
             background: #FF9100;
-            border-color: #FF9100;
+            border-color: #FF9100!important;
           }
         }
       }
@@ -315,6 +391,8 @@ export default {
 
 
   .login-form {
+    padding: 40px 40px 0;
+    box-sizing: border-box;
     /deep/ .el-input {
       display: inline-block;
       height: 47px;
@@ -337,10 +415,6 @@ export default {
       }
     }
 
-    .el-form-item__error {
-      top: 50px;
-      left: 48px;
-    }
     .el-form-item {
       .virtual-border {
         position: absolute;
@@ -370,22 +444,23 @@ export default {
       background: @bg;
       border-radius: 30px;
       color: @light_color;
-      margin-bottom: 32px;
+      margin-bottom: 18px;
       button {
         font-size: 16px;
         border-radius: 30px;
         border: 0px;
         height: 52px;
       }
-      &:nth-child(3) {
-        margin-bottom: 0;
-      }
       &.forget-pwd-btn {
+        // margin-top: -10px;
+        transform: translate(0 , -20px);
+        height: 20px;
         border: 0;
         text-align: right;
         margin-bottom: 0;
         background: transparent;
         button {
+          height: 20px;
           background: transparent;
           color: @light_color;
         }
@@ -397,13 +472,6 @@ export default {
     color: @dark_gray;
     width: 30px;
     display: inline-block;
-  }
-  .title {
-    font-size: 42px;
-    font-weight: 400;
-    color: @light_color;
-    margin: 0px auto 40px auto;
-    text-align: center;
   }
   .show-pwd {
     position: absolute;
@@ -424,6 +492,59 @@ export default {
     &:active {
       background: linear-gradient(#be9966, #be9966);
     }
+  }
+}
+@media screen and (max-width: 923px){
+  .login-container .login-box {
+    .name {
+      width: 24px;
+      margin: 0 auto!important;
+      line-height: 30px!important;
+    }
+    .welcome {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 665px){
+  .login-container .login-box {
+    .right {
+      width: 100%!important;
+    }
+  }
+}
+@media screen and (max-width: 665px){
+  .login-container .login-box {
+    .right {
+      width: 100%!important;
+    }
+  }
+}
+@media screen and (max-width: 500px){
+  .login-in-way .item {
+    border: 1px solid #be9966!important;
+  }
+  .login-container .login-box {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    margin-top: 0;
+    border-radius: 0;
+    .left{
+      display: none;
+    }
+    .right {
+      background: rgba(0,0,0,.65)!important;
+    }
+    .login-new-line span {
+      background: transparent!important
+    }
+  }
+  .login-form .el-form-item {
+    margin-bottom: 32px!important;
+  }
+  .sub_name {
+    display: block!important;
   }
 }
 @keyframes virtualBorder {
